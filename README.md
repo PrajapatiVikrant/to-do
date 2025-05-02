@@ -1,7 +1,11 @@
 # Introduction 
 Create a complete task management system (To-Do list) included create,read,edit,mark ,delete functionality
 
-# Steps to run application
+# Github Link
+https://github.com/PrajapatiVikrant/to-do
+
+
+# Run following command inside your terminal
 1. git clone https://github.com/PrajapatiVikrant/to-do.git
 2. cd to-do
 3. npm install
