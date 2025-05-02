@@ -2,59 +2,53 @@ import React, { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 
-export default function ToDoItem(props){
-    const [editStatus,setEditStatus] = useState(false)
-    const [taskStatus,setTaskStatus] = useState(props.task.status);
-    const [task,setTask] = useState(props.task.task);
-   
+export default function ToDoItem({ id, task, status, deleteTask,editTask, editStatus }) {
+    const [editOpen, setEditOpen] = useState(false)
+    const [editValue,setEditValue] = useState(task)
+    const [statusValue,setStatusValue] = useState(status)
+     
+
+   function handleStatus(){
+       const value = statusValue?false:true;
+       setStatusValue(value)
+       editStatus(id,value)
+   }
+
     function handleEdit(){
-        setEditStatus(false);
-        props.editTask(props.task.id,task) 
+        editTask(id,editValue);
+        setEditOpen(false)
     }
-
-
-  function handleTaskStatus(){
-        const status = taskStatus?false:true
-        setTaskStatus(taskStatus?false:true);
-        props.mark(props.task.id,status);
-    }
-
-
-  function handleDelete(){
-    props.deleteTask(props.task.id)
-    setTask(props.task.task);
-    location.reload()
-   
-    
-   
-  }
 
     return (
-        <div>
-         {editStatus?(
-             <article className="flex shadow-xl shadow-blue-400   items-center rounded-2xl bg-white p-3 text-2xl">
-             
-              <input className="border p-1 w-[90%] outline-none" value={task} type="text" placeholder="Enter new value"  onChange={(e)=>setTask(e.target.value)}/>
-             <button className="border p-1 hover:border-none hover:bg-red-700  hover:text-white hover:font-bold" onClick={handleEdit}>Save</button>
-            
-         </article>
-         ):(
+        <article className="flex w-[80%] justify-between bg-green-50 text-2xl p-2 m-3">
 
-        <article className="flex shadow-xl shadow-blue-400  justify-between items-center rounded-2xl bg-white p-3 text-2xl">
-            <section className="flex items-center gap-3">
-            <input className="w-[25px] h-[25px]" checked={taskStatus} onChange={handleTaskStatus}  type="checkbox" />
-            <p>{task}</p>
-            </section>
-            <section className="flex gap-3">
-            <button className="p-1 border border-white hover:border-black cursor-pointer transition-all duration-500 ease-linear" onClick={()=>setEditStatus(true)}>
-                <MdEdit/>
-            </button>
-            <button className="p-1 border border-white hover:border-black cursor-pointer transition-all duration-500 ease-linear" onClick={handleDelete}>
-                <FaTrash/>
-            </button>
-            </section>
+
+
+            {editOpen ? (
+                <>
+                    <section className="flex">
+                       <input className="outline-none border-b-2" type="text" value={editValue} onChange={(e)=>setEditValue(e.target.value)} />
+                    </section>
+                    <section>
+                        <button onClick={handleEdit} className="text-xl text-white bg-green-500 p-1 rounded cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300">Save</button>
+                       
+                    </section>
+                </>
+            ) : (
+                <>
+                    <section className="flex items-center justify-center">
+                        <input className="mx-2 h-[20px] w-[20px] cursor-pointer" type="checkbox" checked={statusValue} onChange={handleStatus} />
+                        <p>{task}</p>
+                    </section>
+                    <section>
+                        <button className="bg-blue-500 cursor-pointer text-white p-1 mx-2 rounded shadow-md hover:shadow-xl transition-shadow duration-300" onClick={()=>setEditOpen(true)}><MdEdit /></button>
+                        <button className="bg-red-500 cursor-pointer text-white p-1 mx-2 rounded shadow-md hover:shadow-xl transition-shadow duration-300" onClick={() => deleteTask(id)}><FaTrash /></button>
+                    </section>
+                </>
+            )}
+
         </article>
-         )}
-        </div>
     )
+
+    return
 }

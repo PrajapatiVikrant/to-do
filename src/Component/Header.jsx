@@ -1,22 +1,20 @@
 import React, { useState } from "react"
 import { IoIosAdd } from "react-icons/io";
-export default function Header(props){
-     const [task,setTask] = useState('');
+export default function Header({addTask}){
+    const [taskInput,setTaskInput] = useState('');
+    
+   function handleAdd(){
+    addTask(taskInput,false)
+    setTaskInput('')
+   }
 
-    function handleAddTask(){
-       
-       props.addTask(task,false);
-       setTask('')
-       alert("Task added successfully")
-    }
+
     return (
-        <header className="flex flex-col justify-between items-center   p-4 "> 
-            <h1 className="text-3xl font-bold ">
-               Task (To-Do)
-            </h1>
-            <section className="flex   my-2 w-fit border rounded-l-xl">
-                <input className="outline-none p-1 w-[300px] text-2xl " type="text" value={task} placeholder="Enter new task" onChange={(e)=>setTask(e.target.value)} />
-                <button className="border p-1 text-3xl hover:text-white hover:bg-black hover:border-none transition-all duration-500 ease-linear cursor-pointer" onClick={handleAddTask}><IoIosAdd /></button>
+        <header className="mt-5">
+            <h1 className="font-bold text-3xl border-b-2 p-2 w-fit">TASK TODO LIST</h1>
+            <section className="flex border w-[80%] p-3 m-2">
+            <input className=" outline-none  text-xl  w-[100%] "  type="text" value={taskInput} onChange={((e)=>setTaskInput(e.target.value))} placeholder="Write new task here...." />
+            <button className="flex items-center shadow-md hover:shadow-lg transition-shadow duration-300 bg-green-500 p-1.5 pr-2.5 rounded cursor-pointer text-white text-xl" onClick={handleAdd}><IoIosAdd className="text-2xl" /> ADD</button>
             </section>
         </header>
     )
