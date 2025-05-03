@@ -1,5 +1,5 @@
 # Introduction 
-Create a complete task management system (To-Do list) included create,read,edit,mark ,delete functionality
+Create a complete task management system (To-Do list) included create,read,edit,mark ,delete functionality using react.js and localstorage  and tailwindcss for styling
 
 # Github Link
 https://github.com/PrajapatiVikrant/to-do
